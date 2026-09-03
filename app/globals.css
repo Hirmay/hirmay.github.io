@@ -733,53 +733,53 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   font-weight: 700;
 }
 
-.background-section { color: var(--night); background: var(--ice); }
-.light-kicker { color: #526080; }
-.light-kicker span { color: var(--blue); }
-.background-grid > div > p { max-width: 620px; color: #4c566e; }
-.timeline { border-top: 1px solid rgba(21, 32, 61, 0.22); }
+.background-section { color: var(--ice); background: var(--night); }
+.light-kicker { color: #aeb9d5; }
+.light-kicker span { color: #829cf3; }
+.background-grid > div > p { max-width: 620px; color: #cbd2e1; }
+.timeline { border-top: 1px solid rgba(237, 239, 247, 0.24); }
 
 .thermal-motif {
   width: min(390px, 100%);
   margin-top: 42px;
-  color: var(--night);
-  background: rgba(255, 255, 255, 0.52);
-  border-color: rgba(21, 32, 61, 0.22);
+  color: var(--ice);
+  background: rgba(237, 239, 247, 0.04);
+  border-color: rgba(237, 239, 247, 0.25);
   transform: rotate(-0.7deg);
 }
 
 .thermal-time, .thermal-rail, .thermal-vertical {
   fill: none;
-  stroke: rgba(21, 32, 61, 0.58);
+  stroke: rgba(237, 239, 247, 0.66);
   stroke-width: 1.25;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
-.thermal-time { stroke: var(--night); stroke-width: 1.5; }
-.thermal-vertical { stroke: rgba(21, 32, 61, 0.28); stroke-dasharray: 2 3; }
+.thermal-time { stroke: var(--ice); stroke-width: 1.5; }
+.thermal-vertical { stroke: rgba(237, 239, 247, 0.3); stroke-dasharray: 2 3; }
 .thermal-layer.layer-1 { opacity: 0.82; }
 .thermal-layer.layer-2 { opacity: 0.64; }
-.thermal-site { fill: var(--night); stroke: #ffffff; stroke-width: 1; }
-.thermal-gate { fill: var(--blue); stroke: var(--night); stroke-width: 1; }
+.thermal-site { fill: var(--ice); stroke: #ffffff; stroke-width: 1; }
+.thermal-gate { fill: #829cf3; stroke: var(--ice); stroke-width: 1; }
 
 .thermal-time-copy {
-  fill: var(--night);
+  fill: var(--ice);
   font: italic 14px Georgia, serif;
   text-anchor: middle;
 }
 
-.thermal-motif .motif-tiny-copy { fill: #46516c; }
+.thermal-motif .motif-tiny-copy { fill: #d7ddec; }
 
 .timeline article {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 18px;
   padding: 25px 0;
-  border-bottom: 1px solid rgba(21, 32, 61, 0.22);
+  border-bottom: 1px solid rgba(237, 239, 247, 0.24);
 }
 
-.timeline span, .timeline small { color: #66708a; font-size: 0.7rem; }
+.timeline span, .timeline small { color: #aeb9d5; font-size: 0.7rem; }
 
 .timeline h3 {
   margin: 4px 0 2px;
@@ -795,8 +795,8 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   margin-top: 76px;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(21, 32, 61, 0.22);
-  border-bottom: 1px solid rgba(21, 32, 61, 0.22);
+  border-top: 1px solid rgba(237, 239, 247, 0.22);
+  border-bottom: 1px solid rgba(237, 239, 247, 0.22);
 }
 
 .many-body-sketch svg {
@@ -810,37 +810,37 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   position: absolute;
   top: 22px;
   left: 0;
-  color: #53607c;
+  color: #c7cee0;
   font: italic 0.82rem Georgia, serif;
   transform: rotate(-2deg);
 }
 
 .many-baseline, .many-arc {
   fill: none;
-  stroke: rgba(21, 32, 61, 0.64);
+  stroke: rgba(237, 239, 247, 0.67);
   stroke-width: 1.7;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
 .many-arc { stroke-dasharray: 6 5; }
-.many-arc.second { stroke: var(--blue); }
+.many-arc.second { stroke: #829cf3; }
 
 .many-site {
-  fill: var(--ice);
-  stroke: var(--night);
+  fill: var(--night);
+  stroke: var(--ice);
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
 }
 
 .many-spin {
-  fill: var(--night);
+  fill: var(--ice);
   font: 700 18px Georgia, serif;
   text-anchor: middle;
 }
 
 .many-equation {
-  fill: var(--night);
+  fill: var(--ice);
   font: italic 17px Georgia, serif;
   text-anchor: middle;
   letter-spacing: 0.04em;
