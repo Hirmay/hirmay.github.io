@@ -535,8 +535,10 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   grid-template-columns: 0.55fr 1.45fr;
   gap: 44px;
   padding: 42px max(32px, calc((100% - 1180px) / 2));
-  color: var(--white);
-  background: var(--blue);
+  color: var(--night);
+  background: var(--ice);
+  border-top: 1px solid rgba(21, 32, 61, 0.12);
+  border-bottom: 1px solid rgba(21, 32, 61, 0.12);
 }
 
 .interests-band > p {
@@ -562,7 +564,7 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 
 .interest-list small {
   padding-top: 3px;
-  color: #b9c7ff;
+  color: var(--blue);
   font-family: 'Courier New', monospace;
   font-size: 0.62rem;
 }
