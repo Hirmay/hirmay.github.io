@@ -271,7 +271,7 @@ export default function Home() {
           <a href="#work">Selected work</a>
           <a href="#background">Background</a>
         </nav>
-        <a className="header-cv" href="/resume_main.pdf" target="_blank">
+        <a className="header-cv" href="/cv.pdf" target="_blank">
           CV <Download size={15} strokeWidth={1.8} />
         </a>
       </header>
