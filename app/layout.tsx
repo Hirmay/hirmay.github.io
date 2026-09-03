@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://hirmay.github.io'),
   title: 'Hirmay Sandesara | Quantum Computing & Tensor Networks',
   description:
-    'Hirmay Sandesara is a Computational Science and Engineering student at TUM working on tensor-network algorithms for fermionic quantum systems.',
+    'Hirmay Sandesara is a Computational Science and Engineering student at TUM working on tensor-network algorithms for fermionic quantum systems and seeking PhD positions for Fall 2027.',
   authors: [{ name: 'Hirmay Sandesara' }],
   keywords: [
     'Hirmay Sandesara',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Hirmay Sandesara | Quantum Computing & Tensor Networks',
     description:
-      'Numerical methods for quantum many-body systems, with a focus on tensor networks and fermionic dynamics.',
+      'Numerical methods for quantum many-body systems, with a focus on tensor networks, fermionic dynamics, and PhD opportunities for Fall 2027.',
     type: 'website',
     url: 'https://hirmay.github.io',
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hirmay Sandesara | Quantum Computing & Tensor Networks',
     description:
-      'Numerical methods for quantum many-body systems, with a focus on tensor networks and fermionic dynamics.',
+      'Numerical methods for quantum many-body systems, with a focus on tensor networks, fermionic dynamics, and PhD opportunities for Fall 2027.',
     images: ['/og.png'],
   },
 };

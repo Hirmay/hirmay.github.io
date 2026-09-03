@@ -290,6 +290,10 @@ export default function Home() {
             with the aim of avoiding explicit exponential storage while keeping the
             underlying physics visible in the algorithm.
           </p>
+          <p className="phd-status">
+            <span>PhD search</span>
+            I am looking for positions in the Fall 2027 cycle.
+          </p>
           <div className="hero-actions">
             <a className="primary-action" href="#research">
               Read about my research <ArrowDown size={17} />
@@ -455,12 +459,12 @@ export default function Home() {
         </div>
         <div className="background-grid">
           <div>
-            <h2>I am looking for a PhD where numerical ideas meet hard physical problems.</h2>
+            <h2>I am interested in efficient numerical algorithms for quantum many-body simulation.</h2>
             <p>
-              I am especially interested in scalable algorithms for fermionic
+              I am especially interested in tensor-network methods for fermionic
               dynamics, thermal states, and strongly interacting systems. I want to
-              understand not only whether a tensor-network method works, but when its
-              ranks stay manageable and where the representation begins to fail.
+              understand not only whether an algorithm works, but when its ranks stay
+              manageable, what accuracy costs, and where the representation begins to fail.
             </p>
             <ThermalLayersMotif />
           </div>
