@@ -261,6 +261,80 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 .research-body p:first-child, .work-heading p, .background-grid > div > p { margin-top: 0; }
 .math { color: var(--white); font-family: Georgia, serif; }
 
+.micro-motif {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid currentColor;
+}
+
+.micro-motif-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 13px 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+  font-size: 0.61rem;
+  font-weight: 700;
+}
+
+.micro-motif-heading small {
+  opacity: 0.68;
+  font-size: 0.56rem;
+  font-weight: 400;
+}
+
+.micro-motif svg { width: 100%; height: auto; display: block; }
+
+.majorana-string-motif {
+  width: min(440px, 100%);
+  margin: 48px 0 -32px auto;
+  color: #b9c7f7;
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(198, 209, 242, 0.28);
+  transform: rotate(-0.6deg);
+}
+
+.motif-bond, .motif-parity-path, .motif-leg {
+  fill: none;
+  stroke: #dbe2f5;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.motif-parity-path {
+  stroke: #7f9cff;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.motif-leg { stroke: #8591ad; stroke-dasharray: 2 3; }
+.motif-site { fill: #263454; stroke: #c4cdeb; stroke-width: 1.2; }
+.motif-endpoint { fill: var(--blue); stroke: #f7f8ff; stroke-width: 1.4; }
+
+.motif-endpoint-copy {
+  fill: #ffffff;
+  font: italic 14px Georgia, serif;
+  text-anchor: middle;
+}
+
+.motif-path-copy {
+  fill: #adc0ff;
+  font: italic 10px Georgia, serif;
+  text-anchor: middle;
+}
+
+.motif-tiny-copy {
+  fill: currentColor;
+  font: 9px 'Courier New', monospace;
+  text-anchor: middle;
+  letter-spacing: 0.03em;
+}
+
 .method-card {
   margin-top: 82px;
   background: #edf0f8;
@@ -473,6 +547,54 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 .work-section .section-kicker { color: var(--blue-dark); }
 .work-heading p { color: var(--muted); font-size: 1.02rem; }
 
+.compression-motif {
+  max-width: 470px;
+  margin-top: 30px;
+  color: var(--blue-dark);
+  background: #f7f4ec;
+  border-color: #cbc5b8;
+  box-shadow: 7px 7px 0 #ebe6da;
+  transform: rotate(0.5deg);
+}
+
+.compress-tensor {
+  fill: var(--night);
+  stroke: var(--night);
+  stroke-width: 1.4;
+}
+
+.compress-tensor.after { fill: var(--blue); stroke: var(--blue-dark); }
+
+.compress-sector {
+  fill: none;
+  stroke: #4e668f;
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.compress-sector.odd { stroke: var(--blue); stroke-dasharray: 4 3; }
+.compress-sector.spare { stroke: #9ca4b1; stroke-width: 1.2; }
+.compress-sector.kept { stroke-width: 2; }
+
+.compress-arrow {
+  fill: none;
+  stroke: var(--blue-dark);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.compress-svd, .compress-charge, .compress-rank {
+  fill: var(--blue-dark);
+  font: 700 10px 'Courier New', monospace;
+  text-anchor: middle;
+}
+
+.compress-charge { fill: #63708a; font-size: 9px; }
+.compress-rank { font: italic 13px Georgia, serif; }
+
+.compression-motif .motif-tiny-copy { fill: #687082; }
+
 .notebook-note {
   width: min(590px, 72%);
   margin: 62px 0 8px auto;
@@ -523,6 +645,21 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   font-size: 2.2rem;
   letter-spacing: -0.22em;
   transform: rotate(-8deg);
+}
+
+.note-scribbles {
+  margin-top: 17px;
+  display: flex;
+  gap: 18px;
+  color: #756f64;
+  font-family: 'Courier New', monospace;
+  transform: rotate(-1deg);
+}
+
+.note-scribbles small {
+  padding-bottom: 2px;
+  border-bottom: 1px dashed #9c9382;
+  font-size: 0.62rem;
 }
 
 .work-list { margin-top: 70px; border-top: 1px solid var(--line); }
@@ -576,6 +713,38 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 .light-kicker, .light-kicker span { color: #c9d3fa; }
 .background-grid > div > p { max-width: 620px; color: #dce3ff; }
 .timeline { border-top: 1px solid rgba(255, 255, 255, 0.35); }
+
+.thermal-motif {
+  width: min(390px, 100%);
+  margin-top: 42px;
+  color: #dce3ff;
+  background: rgba(17, 37, 112, 0.16);
+  border-color: rgba(255, 255, 255, 0.32);
+  transform: rotate(-0.7deg);
+}
+
+.thermal-time, .thermal-rail, .thermal-vertical {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.66);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.thermal-time { stroke: #dbe3ff; stroke-width: 1.5; }
+.thermal-vertical { stroke: rgba(219, 227, 255, 0.38); stroke-dasharray: 2 3; }
+.thermal-layer.layer-1 { opacity: 0.82; }
+.thermal-layer.layer-2 { opacity: 0.64; }
+.thermal-site { fill: #ffffff; stroke: #dbe3ff; stroke-width: 1; }
+.thermal-gate { fill: #9dafef; stroke: #f8f9ff; stroke-width: 1; }
+
+.thermal-time-copy {
+  fill: #ffffff;
+  font: italic 14px Georgia, serif;
+  text-anchor: middle;
+}
+
+.thermal-motif .motif-tiny-copy { fill: #f2f5ff; }
 
 .timeline article {
   display: grid;
@@ -686,6 +855,13 @@ footer {
   font-size: 0.72rem;
 }
 
+.footer-signoff {
+  margin: 0;
+  color: #777c83;
+  font: italic 0.72rem Georgia, serif;
+  letter-spacing: 0.02em;
+}
+
 .social-links { display: flex; gap: 18px; }
 
 .social-links a {
@@ -741,6 +917,7 @@ footer {
   }
 
   .research-grid, .work-heading, .background-grid { gap: 38px; }
+  .majorana-string-motif { margin-top: 38px; margin-bottom: -18px; }
   .method-card { margin-top: 56px; }
   .method-copy { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
   .diagram-heading { align-items: flex-start; padding: 20px 24px 0; }
@@ -749,6 +926,7 @@ footer {
   .interests-band { padding: 38px 20px; }
   .interest-list { grid-template-columns: 1fr; }
   .notebook-note { width: 92%; margin-top: 52px; padding: 22px; }
+  .note-scribbles { flex-wrap: wrap; gap: 8px 14px; }
   .work-list { margin-top: 58px; }
 
   .work-item {
@@ -761,7 +939,8 @@ footer {
   .many-body-sketch { margin-top: 58px; padding-top: 42px; }
   .many-body-note { top: 14px; }
   .contact-email { font-size: 1rem; }
-  footer { align-items: flex-start; gap: 24px; }
+  footer { align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+  .footer-signoff { order: 3; flex-basis: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

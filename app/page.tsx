@@ -43,6 +43,123 @@ function HeroNetworkSketch() {
   );
 }
 
+function MajoranaStringMotif() {
+  return (
+    <figure className="micro-motif majorana-string-motif">
+      <div className="micro-motif-heading">
+        <span>Majorana string</span>
+        <small>endpoint-local</small>
+      </div>
+      <svg
+        viewBox="0 0 340 112"
+        role="img"
+        aria-labelledby="majorana-motif-title majorana-motif-description"
+      >
+        <title id="majorana-motif-title">A long Majorana string stored through its endpoints</title>
+        <desc id="majorana-motif-description">
+          Gamma a and gamma b act at opposite endpoints. The crossed interior sites
+          contribute virtual parity information instead of a stored numerical string.
+        </desc>
+        <path className="motif-bond" d="M43 61 C102 56 235 66 297 60" />
+        <path className="motif-parity-path" d="M81 61 C130 31 211 30 260 60" />
+        {[92, 132, 172, 212, 252].map((x) => (
+          <g key={x}>
+            <rect className="motif-site" x={x - 8} y="53" width="16" height="16" rx="1.5" />
+            <path className="motif-leg" d={`M${x} 69 L${x} 87`} />
+          </g>
+        ))}
+        <circle className="motif-endpoint" cx="52" cy="61" r="18" />
+        <circle className="motif-endpoint" cx="288" cy="61" r="18" />
+        <text className="motif-endpoint-copy" x="52" y="66">γₐ</text>
+        <text className="motif-endpoint-copy" x="288" y="66">γᵦ</text>
+        <text className="motif-path-copy" x="171" y="25">virtual parity remembers the middle</text>
+        <text className="motif-tiny-copy" x="171" y="105">two numerical endpoints · one charge trail</text>
+      </svg>
+    </figure>
+  );
+}
+
+function CompressionMotif() {
+  return (
+    <figure className="micro-motif compression-motif">
+      <div className="micro-motif-heading">
+        <span>After the update</span>
+        <small>compress, but keep the sectors</small>
+      </div>
+      <svg
+        viewBox="0 0 380 130"
+        role="img"
+        aria-labelledby="compression-title compression-description"
+      >
+        <title id="compression-title">Charge-aware singular value compression</title>
+        <desc id="compression-description">
+          A wide bond carrying even and odd charge sectors is compressed by a
+          sector-aware singular value decomposition into a smaller bond.
+        </desc>
+        <rect className="compress-tensor" x="24" y="44" width="42" height="42" rx="2" />
+        <rect className="compress-tensor" x="126" y="44" width="42" height="42" rx="2" />
+        <path className="compress-sector even" d="M66 55 C87 49 104 50 126 55" />
+        <path className="compress-sector odd" d="M66 66 C88 62 104 63 126 66" />
+        <path className="compress-sector spare" d="M66 77 C88 82 105 82 126 77" />
+        <text className="compress-charge" x="96" y="40">q = 0, 1</text>
+        <path className="compress-arrow" d="M185 65 C206 65 217 65 236 65" />
+        <path className="compress-arrow" d="M230 59 L237 65 L230 71" />
+        <text className="compress-svd" x="211" y="48">SVD</text>
+        <rect className="compress-tensor after" x="253" y="44" width="42" height="42" rx="2" />
+        <rect className="compress-tensor after" x="338" y="44" width="42" height="42" rx="2" />
+        <path className="compress-sector kept" d="M295 60 C310 56 324 57 338 60" />
+        <path className="compress-sector kept odd" d="M295 72 C311 76 324 76 338 72" />
+        <text className="compress-rank" x="317" y="31">χ → χ̃</text>
+        <text className="motif-tiny-copy" x="190" y="118">truncate within charge blocks, not across them</text>
+      </svg>
+    </figure>
+  );
+}
+
+function ThermalLayersMotif() {
+  const sites = [88, 142, 196, 250];
+  const layers = [88, 58, 28];
+
+  return (
+    <figure className="micro-motif thermal-motif">
+      <div className="micro-motif-heading">
+        <span>Thermal states</span>
+        <small>imaginary time, layer by layer</small>
+      </div>
+      <svg
+        viewBox="0 0 340 132"
+        role="img"
+        aria-labelledby="thermal-title thermal-description"
+      >
+        <title id="thermal-title">Layered imaginary-time tensor network</title>
+        <desc id="thermal-description">
+          Three short layers of local gates act above a four-site matrix product state,
+          with imaginary time increasing upward.
+        </desc>
+        <path className="thermal-time" d="M42 99 L42 20" />
+        <text className="thermal-time-copy" x="27" y="18">τ</text>
+        {layers.map((y, layerIndex) => (
+          <g key={y} className={`thermal-layer layer-${layerIndex}`}>
+            <path className="thermal-rail" d={`M70 ${y} L268 ${y}`} />
+            {sites.map((x, siteIndex) => (
+              <g key={`${x}-${y}`}>
+                <circle className="thermal-site" cx={x} cy={y} r="6" />
+                {layerIndex < layers.length - 1 && (
+                  <path className="thermal-vertical" d={`M${x} ${y - 6} L${x} ${layers[layerIndex + 1] + 6}`} />
+                )}
+                {siteIndex < sites.length - 1 && (siteIndex + layerIndex) % 2 === 0 && (
+                  <rect className="thermal-gate" x={x + 15} y={y - 8} width="24" height="16" rx="2" />
+                )}
+              </g>
+            ))}
+          </g>
+        ))}
+        <text className="motif-tiny-copy" x="170" y="122">e<tspan baselineShift="super" fontSize="8">−ΔτH</tspan> · compress · repeat</text>
+      </svg>
+    </figure>
+  );
+}
+
 function ChargeFlowDiagram() {
   return (
     <figure className="charge-diagram">
@@ -223,6 +340,8 @@ export default function Home() {
           </div>
         </div>
 
+        <MajoranaStringMotif />
+
         <div className="method-card">
           <div className="method-copy">
             <div>
@@ -257,16 +376,23 @@ export default function Home() {
         </div>
         <div className="work-heading">
           <h2>A few problems I have worked on.</h2>
-          <p>
-            My path into tensor networks grew out of quantum algorithms, simulation,
-            and open-source work. I like problems where mathematical structure can
-            be turned into a practical numerical method.
-          </p>
+          <div>
+            <p>
+              My path into tensor networks grew out of quantum algorithms, simulation,
+              and open-source work. I like problems where mathematical structure can
+              be turned into a practical numerical method.
+            </p>
+            <CompressionMotif />
+          </div>
         </div>
 
         <aside className="notebook-note" aria-label="A recurring research question">
           <span>the question in my notebook</span>
           <p>Can the representation stay small without hiding the physics?</p>
+          <div className="note-scribbles" aria-hidden="true">
+            <small>rank ↑ ?</small>
+            <small>accuracy ↔ memory</small>
+          </div>
           <i aria-hidden="true">∼∼∼</i>
         </aside>
 
@@ -336,6 +462,7 @@ export default function Home() {
               understand not only whether a tensor-network method works, but when its
               ranks stay manageable and where the representation begins to fail.
             </p>
+            <ThermalLayersMotif />
           </div>
           <div className="timeline">
             <article>
@@ -375,6 +502,7 @@ export default function Home() {
 
       <footer>
         <p>© 2026 Hirmay Sandesara</p>
+        <p className="footer-signoff">tensors, signs, and careful approximations.</p>
         <div className="social-links">
           <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
             GH
