@@ -621,74 +621,7 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 
 .compression-motif .motif-tiny-copy { fill: #687082; }
 
-.notebook-note {
-  width: min(590px, 72%);
-  margin: 62px 0 8px auto;
-  padding: 22px 30px 25px;
-  position: relative;
-  color: var(--blue-dark);
-  background: #ebe6d8;
-  border: 1px solid #d2cab6;
-  box-shadow: 8px 9px 0 #dfd8c7;
-  transform: rotate(1deg);
-}
-
-.notebook-note::before {
-  content: '';
-  position: absolute;
-  width: 72px;
-  height: 18px;
-  top: -10px;
-  left: 38px;
-  background: rgba(255, 255, 255, 0.57);
-  transform: rotate(-4deg);
-}
-
-.notebook-note span {
-  display: block;
-  color: #7d7669;
-  font-family: 'Courier New', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.notebook-note p {
-  max-width: 500px;
-  margin: 7px 0 0;
-  font-family: Georgia, serif;
-  font-size: clamp(1.25rem, 2.4vw, 1.8rem);
-  font-style: italic;
-  line-height: 1.28;
-}
-
-.notebook-note i {
-  position: absolute;
-  right: 24px;
-  bottom: -18px;
-  color: var(--blue);
-  font-family: Georgia, serif;
-  font-size: 2.2rem;
-  letter-spacing: -0.22em;
-  transform: rotate(-8deg);
-}
-
-.note-scribbles {
-  margin-top: 17px;
-  display: flex;
-  gap: 18px;
-  color: #756f64;
-  font-family: 'Courier New', monospace;
-  transform: rotate(-1deg);
-}
-
-.note-scribbles small {
-  padding-bottom: 2px;
-  border-bottom: 1px dashed #9c9382;
-  font-size: 0.62rem;
-}
-
-.work-list { margin-top: 70px; border-top: 1px solid var(--line); }
+.work-list { margin-top: 78px; border-top: 1px solid var(--line); }
 
 .work-item {
   display: grid;
@@ -952,8 +885,6 @@ footer {
   .charge-diagram figcaption { padding: 0 24px 28px; }
   .interests-band { padding: 38px 20px; }
   .interest-list { grid-template-columns: 1fr; }
-  .notebook-note { width: 92%; margin-top: 52px; padding: 22px; }
-  .note-scribbles { flex-wrap: wrap; gap: 8px 14px; }
   .work-list { margin-top: 58px; }
 
   .work-item {
@@ -1020,7 +951,6 @@ footer {
   .diagram-heading small { max-width: none; text-align: left; }
   .charge-diagram figcaption { padding: 0 18px 24px; }
   .interests-band { padding-inline: 16px; }
-  .notebook-note { width: 100%; transform: none; }
   .many-body-sketch svg { min-width: 440px; margin-left: -52px; }
   .many-body-note { max-width: 180px; line-height: 1.35; }
 

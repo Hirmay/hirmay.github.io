@@ -390,16 +390,6 @@ export default function Home() {
           </div>
         </div>
 
-        <aside className="notebook-note" aria-label="A recurring research question">
-          <span>the question in my notebook</span>
-          <p>Can the representation stay small without hiding the physics?</p>
-          <div className="note-scribbles" aria-hidden="true">
-            <small>rank ↑ ?</small>
-            <small>accuracy ↔ memory</small>
-          </div>
-          <i aria-hidden="true">∼∼∼</i>
-        </aside>
-
         <div className="work-list">
           <article className="work-item">
             <div className="work-meta">
