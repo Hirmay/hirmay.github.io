@@ -20,6 +20,128 @@ const researchInterests = [
   'Thermal-state simulation',
 ];
 
+function HeroNetworkSketch() {
+  return (
+    <svg
+      className="hero-network-sketch"
+      viewBox="0 0 210 132"
+      aria-hidden="true"
+    >
+      <path className="sketch-line" d="M16 68 C45 58, 59 78, 86 66 S136 55, 191 69" />
+      <path className="sketch-line faint" d="M52 66 C48 91, 63 104, 60 123" />
+      <path className="sketch-line faint" d="M108 64 C105 38, 118 23, 116 7" />
+      <path className="sketch-line faint" d="M163 63 C169 88, 155 103, 162 124" />
+      <rect className="sketch-node" x="42" y="55" width="22" height="22" rx="2" />
+      <rect className="sketch-node" x="98" y="53" width="22" height="22" rx="2" />
+      <rect className="sketch-node" x="153" y="55" width="22" height="22" rx="2" />
+      <text x="49" y="70">A</text>
+      <text x="105" y="68">A</text>
+      <text x="160" y="70">A</text>
+      <text className="sketch-caption" x="4" y="29">a small state,</text>
+      <text className="sketch-caption" x="116" y="110">a large system</text>
+    </svg>
+  );
+}
+
+function ChargeFlowDiagram() {
+  return (
+    <figure className="charge-diagram">
+      <div className="diagram-heading">
+        <span>Endpoint-prefix update</span>
+        <small>one long-range Majorana term</small>
+      </div>
+      <div className="diagram-scroll">
+        <svg
+          viewBox="0 0 1040 360"
+          role="img"
+          aria-labelledby="charge-flow-title charge-flow-description"
+        >
+          <title id="charge-flow-title">Virtual charge flow through a long-range MPS update</title>
+          <desc id="charge-flow-description">
+            Endpoint operators ell a and ell b act on tensors i and j. Signs are read
+            from old prefix charges, the virtual charges between the endpoints are
+            toggled, and the charge is restored after the right endpoint.
+          </desc>
+          <defs>
+            <pattern id="paper-dots" width="18" height="18" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.2" className="diagram-dot" />
+            </pattern>
+            <marker id="charge-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" className="arrow-head" />
+            </marker>
+          </defs>
+
+          <rect x="0" y="0" width="1040" height="360" fill="url(#paper-dots)" opacity="0.52" />
+
+          <path className="diagram-bond" d="M44 206 C95 202 153 210 224 205" />
+          <path className="diagram-bond toggled" d="M288 205 C346 198 419 211 488 205" />
+          <path className="diagram-bond toggled" d="M552 205 C615 210 690 199 752 205" />
+          <path className="diagram-bond" d="M816 205 C884 200 934 208 996 204" />
+
+          <text className="bond-copy" x="119" y="179">old</text>
+          <text className="bond-copy active" x="336" y="176">Q₁ → Q₁ ⊕ 1</text>
+          <text className="bond-copy active" x="601" y="176">Q₂ → Q₂ ⊕ 1</text>
+          <text className="bond-copy" x="884" y="178">restored</text>
+
+          <rect className="diagram-tensor" x="224" y="173" width="64" height="64" rx="3" />
+          <rect className="diagram-tensor middle" x="488" y="173" width="64" height="64" rx="3" />
+          <rect className="diagram-tensor" x="752" y="173" width="64" height="64" rx="3" />
+          <text className="tensor-copy" x="256" y="212">A<tspan baselineShift="super" fontSize="13">[i]</tspan></text>
+          <text className="tensor-copy dots" x="520" y="210">⋯</text>
+          <text className="tensor-copy" x="784" y="212">A<tspan baselineShift="super" fontSize="13">[j]</tspan></text>
+
+          <circle className="endpoint-node" cx="256" cy="66" r="31" />
+          <circle className="endpoint-node" cx="784" cy="66" r="31" />
+          <text className="endpoint-copy" x="256" y="73">ℓₐ</text>
+          <text className="endpoint-copy" x="784" y="73">ℓᵦ</text>
+          <path className="endpoint-flow" markerEnd="url(#charge-arrow)" d="M256 99 C256 120 256 142 256 164" />
+          <path className="endpoint-flow" markerEnd="url(#charge-arrow)" d="M784 99 C784 120 784 142 784 164" />
+          <text className="sign-copy" x="274" y="134">(−1)<tspan baselineShift="super" fontSize="12">Qᵢ₋₁</tspan></text>
+          <text className="sign-copy right" x="801" y="134">(−1)<tspan baselineShift="super" fontSize="12">Qⱼ₋₁</tspan></text>
+
+          <path className="physical-leg" d="M256 237 C254 262 259 279 256 302" />
+          <path className="physical-leg" d="M520 237 C524 260 516 281 520 302" />
+          <path className="physical-leg" d="M784 237 C780 261 788 281 784 302" />
+          <text className="physical-copy" x="256" y="326">sᵢ</text>
+          <text className="physical-copy" x="520" y="326">sₖ</text>
+          <text className="physical-copy" x="784" y="326">sⱼ</text>
+
+          <path className="scribble-arrow" markerEnd="url(#charge-arrow)" d="M615 321 C654 339 704 337 737 307" />
+          <text className="scribble-copy" x="500" y="346">toggle only the interval [i, j)</text>
+        </svg>
+      </div>
+      <figcaption>
+        <strong>Read, act, toggle.</strong> I first read the old prefix charges, then
+        apply the endpoint maps and signs, and only afterwards XOR-toggle the bond
+        charges across the interval. No numerical parity string is applied to every
+        tensor in the middle.
+      </figcaption>
+    </figure>
+  );
+}
+
+function ManyBodySketch() {
+  return (
+    <div className="many-body-sketch">
+      <div className="many-body-note">many local choices → one global state</div>
+      <svg viewBox="0 0 720 170" aria-hidden="true">
+        <path className="many-arc" d="M89 90 Q151 20 213 90" />
+        <path className="many-arc second" d="M213 90 Q277 148 341 90" />
+        <path className="many-arc" d="M341 90 Q405 20 469 90" />
+        <path className="many-arc second" d="M469 90 Q533 148 597 90" />
+        {[89, 213, 341, 469, 597].map((x, index) => (
+          <g key={x}>
+            <circle className="many-site" cx={x} cy="90" r="16" />
+            <text className="many-spin" x={x} y="96">{index % 2 === 0 ? '↑' : '↓'}</text>
+          </g>
+        ))}
+        <path className="many-baseline" d="M60 90 C206 84 482 96 626 90" />
+        <text className="many-equation" x="356" y="157">|ψ⟩ ≈ A¹ — A² — ··· — Aᴸ</text>
+      </svg>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <main>
@@ -62,6 +184,7 @@ export default function Home() {
         </div>
 
         <div className="portrait-wrap">
+          <HeroNetworkSketch />
           <div className="portrait-frame">
             <img
               src="/hirmay-sandesara.jpg"
@@ -100,31 +223,18 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="method-card" aria-label="Schematic of the virtual charge update">
+        <div className="method-card">
           <div className="method-copy">
-            <p className="method-label">Virtual charge rule</p>
-            <p className="equation">
-              q<sub>R</sub> = q<sub>L</sub> ⊕ p(s)
-            </p>
+            <div>
+              <p className="method-label">Virtual charge rule</p>
+              <p className="equation">q<sub>R</sub> = q<sub>L</sub> ⊕ p(s)</p>
+            </div>
             <p>
-              The right bond charge equals the incoming charge plus the parity of
-              the local operator label, modulo two.
+              The bond charge is a small bookkeeping variable with a useful job: it
+              remembers the parity accumulated to the left of the current site.
             </p>
           </div>
-          <div className="tensor-chain" aria-hidden="true">
-            <span className="bond-label label-a">q<sub>L</sub></span>
-            <span className="bond-label label-b">q<sub>R</sub></span>
-            <span className="bond line-one" />
-            <span className="tensor tensor-one">A¹</span>
-            <span className="bond line-two" />
-            <span className="tensor tensor-two">A²</span>
-            <span className="bond line-three" />
-            <span className="tensor tensor-three">A³</span>
-            <span className="bond line-four" />
-            <span className="physical physical-one" />
-            <span className="physical physical-two" />
-            <span className="physical physical-three" />
-          </div>
+          <ChargeFlowDiagram />
         </div>
       </section>
 
@@ -153,6 +263,12 @@ export default function Home() {
             be turned into a practical numerical method.
           </p>
         </div>
+
+        <aside className="notebook-note" aria-label="A recurring research question">
+          <span>the question in my notebook</span>
+          <p>Can the representation stay small without hiding the physics?</p>
+          <i aria-hidden="true">∼∼∼</i>
+        </aside>
 
         <div className="work-list">
           <article className="work-item">
@@ -242,6 +358,7 @@ export default function Home() {
             </article>
           </div>
         </div>
+        <ManyBodySketch />
       </section>
 
       <section className="contact-section">
