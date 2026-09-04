@@ -1,7 +1,7 @@
-# Hirmay Sandesara — academic website
+# My academic website
 
-Personal academic website focused on tensor-network algorithms, quantum many-body
-systems, and fermionic dynamics.
+My personal academic website focused on tensor-network algorithms, quantum many-body
+systems, and fermionic dynamics. Feel free to use the template or setting to build yours XD.
 
 ## Local development
 
