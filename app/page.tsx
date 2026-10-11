@@ -324,7 +324,7 @@ export default function Home() {
         </div>
         <div className="research-grid">
           <div>
-            <p className="supervision">Supervised by Dr. Christian B. Mendl</p>
+            <p className="supervision">Supervised by Prof. Christian B. Mendl</p>
             <h2>Tracking fermionic parity inside a matrix product state.</h2>
           </div>
           <div className="research-body">
