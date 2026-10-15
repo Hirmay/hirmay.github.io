@@ -1,10 +1,11 @@
 import {
   ArrowDown,
   ArrowUpRight,
-  Download,
+  FileText,
   GraduationCap,
   Mail,
 } from 'lucide-react';
+import { ChargeFlowDiagram, ManyBodySketch } from './tensor-diagrams';
 
 const links = {
   email: 'mailto:hirmaysandesara@gmail.com',
@@ -116,146 +117,19 @@ function CompressionMotif() {
   );
 }
 
-function ThermalLayersMotif() {
-  const sites = [88, 142, 196, 250];
-  const layers = [88, 58, 28];
-
+function GithubIcon() {
   return (
-    <figure className="micro-motif thermal-motif">
-      <div className="micro-motif-heading">
-        <span>Thermal states</span>
-        <small>imaginary time, layer by layer</small>
-      </div>
-      <svg
-        viewBox="0 0 340 132"
-        role="img"
-        aria-labelledby="thermal-title thermal-description"
-      >
-        <title id="thermal-title">Layered imaginary-time tensor network</title>
-        <desc id="thermal-description">
-          Three short layers of local gates act above a four-site matrix product state,
-          with imaginary time increasing upward.
-        </desc>
-        <path className="thermal-time" d="M42 99 L42 20" />
-        <text className="thermal-time-copy" x="27" y="18">τ</text>
-        {layers.map((y, layerIndex) => (
-          <g key={y} className={`thermal-layer layer-${layerIndex}`}>
-            <path className="thermal-rail" d={`M70 ${y} L268 ${y}`} />
-            {sites.map((x, siteIndex) => (
-              <g key={`${x}-${y}`}>
-                <circle className="thermal-site" cx={x} cy={y} r="6" />
-                {layerIndex < layers.length - 1 && (
-                  <path className="thermal-vertical" d={`M${x} ${y - 6} L${x} ${layers[layerIndex + 1] + 6}`} />
-                )}
-                {siteIndex < sites.length - 1 && (siteIndex + layerIndex) % 2 === 0 && (
-                  <rect className="thermal-gate" x={x + 15} y={y - 8} width="24" height="16" rx="2" />
-                )}
-              </g>
-            ))}
-          </g>
-        ))}
-        <text className="motif-tiny-copy" x="170" y="122">e<tspan baselineShift="super" fontSize="8">−ΔτH</tspan> · compress · repeat</text>
-      </svg>
-    </figure>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.09c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.63 1.22 3.27.93.1-.72.39-1.22.71-1.5-2.5-.29-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.16a10.8 10.8 0 0 1 5.64 0c2.15-1.46 3.1-1.16 3.1-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.41.35.77 1.03.77 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z" />
+    </svg>
   );
 }
 
-function ChargeFlowDiagram() {
+function LinkedinIcon() {
   return (
-    <figure className="charge-diagram">
-      <div className="diagram-heading">
-        <span>Endpoint-prefix update</span>
-        <small>one long-range Majorana term</small>
-      </div>
-      <div className="diagram-scroll">
-        <svg
-          viewBox="0 0 1040 360"
-          role="img"
-          aria-labelledby="charge-flow-title charge-flow-description"
-        >
-          <title id="charge-flow-title">Virtual charge flow through a long-range MPS update</title>
-          <desc id="charge-flow-description">
-            Endpoint operators ell a and ell b act on tensors i and j. Signs are read
-            from old prefix charges, the virtual charges between the endpoints are
-            toggled, and the charge is restored after the right endpoint.
-          </desc>
-          <defs>
-            <pattern id="paper-dots" width="18" height="18" patternUnits="userSpaceOnUse">
-              <circle cx="2" cy="2" r="1.2" className="diagram-dot" />
-            </pattern>
-            <marker id="charge-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" className="arrow-head" />
-            </marker>
-          </defs>
-
-          <rect x="0" y="0" width="1040" height="360" fill="url(#paper-dots)" opacity="0.52" />
-
-          <path className="diagram-bond" d="M44 206 C95 202 153 210 224 205" />
-          <path className="diagram-bond toggled" d="M288 205 C346 198 419 211 488 205" />
-          <path className="diagram-bond toggled" d="M552 205 C615 210 690 199 752 205" />
-          <path className="diagram-bond" d="M816 205 C884 200 934 208 996 204" />
-
-          <text className="bond-copy" x="119" y="179">old</text>
-          <text className="bond-copy active" x="336" y="176">Q₁ → Q₁ ⊕ 1</text>
-          <text className="bond-copy active" x="601" y="176">Q₂ → Q₂ ⊕ 1</text>
-          <text className="bond-copy" x="884" y="178">restored</text>
-
-          <rect className="diagram-tensor" x="224" y="173" width="64" height="64" rx="3" />
-          <rect className="diagram-tensor middle" x="488" y="173" width="64" height="64" rx="3" />
-          <rect className="diagram-tensor" x="752" y="173" width="64" height="64" rx="3" />
-          <text className="tensor-copy" x="256" y="212">A<tspan baselineShift="super" fontSize="13">[i]</tspan></text>
-          <text className="tensor-copy dots" x="520" y="210">⋯</text>
-          <text className="tensor-copy" x="784" y="212">A<tspan baselineShift="super" fontSize="13">[j]</tspan></text>
-
-          <circle className="endpoint-node" cx="256" cy="66" r="31" />
-          <circle className="endpoint-node" cx="784" cy="66" r="31" />
-          <text className="endpoint-copy" x="256" y="73">ℓₐ</text>
-          <text className="endpoint-copy" x="784" y="73">ℓᵦ</text>
-          <path className="endpoint-flow" markerEnd="url(#charge-arrow)" d="M256 99 C256 120 256 142 256 164" />
-          <path className="endpoint-flow" markerEnd="url(#charge-arrow)" d="M784 99 C784 120 784 142 784 164" />
-          <text className="sign-copy" x="274" y="134">(−1)<tspan baselineShift="super" fontSize="12">Qᵢ₋₁</tspan></text>
-          <text className="sign-copy right" x="801" y="134">(−1)<tspan baselineShift="super" fontSize="12">Qⱼ₋₁</tspan></text>
-
-          <path className="physical-leg" d="M256 237 C254 262 259 279 256 302" />
-          <path className="physical-leg" d="M520 237 C524 260 516 281 520 302" />
-          <path className="physical-leg" d="M784 237 C780 261 788 281 784 302" />
-          <text className="physical-copy" x="256" y="326">sᵢ</text>
-          <text className="physical-copy" x="520" y="326">sₖ</text>
-          <text className="physical-copy" x="784" y="326">sⱼ</text>
-
-          <path className="scribble-arrow" markerEnd="url(#charge-arrow)" d="M615 321 C654 339 704 337 737 307" />
-          <text className="scribble-copy" x="500" y="346">toggle only the interval [i, j)</text>
-        </svg>
-      </div>
-      <figcaption>
-        <strong>Read, act, toggle.</strong> I first read the old prefix charges, then
-        apply the endpoint maps and signs, and only afterwards XOR-toggle the bond
-        charges across the interval. No numerical parity string is applied to every
-        tensor in the middle.
-      </figcaption>
-    </figure>
-  );
-}
-
-function ManyBodySketch() {
-  return (
-    <div className="many-body-sketch">
-      <div className="many-body-note">many local choices → one global state</div>
-      <svg viewBox="0 0 720 170" aria-hidden="true">
-        <path className="many-arc" d="M89 90 Q151 20 213 90" />
-        <path className="many-arc second" d="M213 90 Q277 148 341 90" />
-        <path className="many-arc" d="M341 90 Q405 20 469 90" />
-        <path className="many-arc second" d="M469 90 Q533 148 597 90" />
-        {[89, 213, 341, 469, 597].map((x, index) => (
-          <g key={x}>
-            <circle className="many-site" cx={x} cy="90" r="16" />
-            <text className="many-spin" x={x} y="96">{index % 2 === 0 ? '↑' : '↓'}</text>
-          </g>
-        ))}
-        <path className="many-baseline" d="M60 90 C206 84 482 96 626 90" />
-        <text className="many-equation" x="356" y="157">|ψ⟩ ≈ A¹ — A² — ··· — Aᴸ</text>
-      </svg>
-    </div>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <path d="M20.45 2H3.55C2.7 2 2 2.68 2 3.51v16.98c0 .83.7 1.51 1.55 1.51h16.9c.86 0 1.55-.68 1.55-1.51V3.51C22 2.68 21.3 2 20.45 2ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.46 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.29 10.85H15.8V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.52V9.2h2.82v1.3h.04c.39-.74 1.35-1.53 2.78-1.53 2.97 0 3.59 1.95 3.59 4.49v5.29Z" />
+    </svg>
   );
 }
 
@@ -271,8 +145,8 @@ export default function Home() {
           <a href="#work">Selected work</a>
           <a href="#background">Background</a>
         </nav>
-        <a className="header-cv" href="/cv.pdf" target="_blank">
-          CV <Download size={15} strokeWidth={1.8} />
+        <a className="header-cv" href="/cv.pdf" target="_blank" rel="noreferrer" aria-label="View academic CV (PDF)">
+          <FileText size={18} strokeWidth={1.7} aria-hidden="true" /> CV
         </a>
       </header>
 
@@ -299,7 +173,7 @@ export default function Home() {
               Read about my research <ArrowDown size={17} />
             </a>
             <a className="text-action" href={links.email}>
-              Get in touch <ArrowUpRight size={16} />
+              <Mail size={18} strokeWidth={1.7} aria-hidden="true" /> Get in touch
             </a>
           </div>
         </div>
@@ -456,7 +330,6 @@ export default function Home() {
               understand not only whether an algorithm works, but when its ranks stay
               manageable, what accuracy costs, and where the representation begins to fail.
             </p>
-            <ThermalLayersMotif />
           </div>
           <div className="timeline">
             <article>
@@ -496,13 +369,12 @@ export default function Home() {
 
       <footer>
         <p>© 2026 Hirmay Sandesara</p>
-        <p className="footer-signoff">tensors, signs, and careful approximations.</p>
         <div className="social-links">
-          <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-            GH
+          <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
+            <GithubIcon />
           </a>
-          <a href={links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            IN
+          <a href={links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <LinkedinIcon />
           </a>
           <a href={links.scholar} target="_blank" rel="noreferrer" aria-label="Google Scholar">
             <GraduationCap size={20} />

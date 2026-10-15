@@ -32,6 +32,12 @@ body {
 
 ::selection { color: var(--white); background: var(--blue); }
 a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid #7f9cff;
+  outline-offset: 5px;
+}
+button, select { font: inherit; }
+a > svg { flex-shrink: 0; }
 
 .site-header {
   width: min(1180px, calc(100% - 64px));
@@ -116,7 +122,7 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   align-items: center;
   gap: 13px;
   color: #3d4658;
-  font-size: 0.86rem;
+  font-size: 1rem;
   line-height: 1.45;
 }
 
@@ -125,7 +131,7 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   border-right: 1px solid #aeb5c8;
   color: var(--blue);
   font-family: 'Courier New', monospace;
-  font-size: 0.64rem;
+  font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -414,10 +420,36 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   font-weight: 400;
 }
 
+.diagram-steps {
+  display: flex;
+  gap: 10px;
+  margin: 24px 42px 4px;
+}
+
+.diagram-steps button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 9px 15px;
+  border: 1px solid #bdc6dc;
+  border-radius: 2px;
+  background: transparent;
+  color: #505e7a;
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.diagram-steps button span { font: 0.68rem 'Courier New', monospace; opacity: 0.7; }
+.diagram-steps button:hover { border-color: var(--blue); color: var(--blue-dark); }
+.diagram-steps button[aria-pressed='true'] { color: var(--white); background: var(--blue-dark); border-color: var(--blue-dark); }
+
 .diagram-scroll { width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
 
 .charge-diagram svg {
-  min-width: 780px;
+  min-width: 640px;
   width: 100%;
   height: auto;
   display: block;
@@ -438,6 +470,21 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
   stroke-width: 3.1;
   stroke-dasharray: 9 6;
 }
+
+.diagram-bond, .endpoint-maps, .prefix-signs, .endpoint-tensor, .interval-note {
+  transition: opacity 260ms ease, stroke 260ms ease, fill 260ms ease, stroke-width 260ms ease;
+}
+
+.endpoint-maps { opacity: 0.32; }
+.charge-diagram[data-step='1'] .endpoint-maps { opacity: 1; }
+.charge-diagram[data-step='2'] .endpoint-maps { opacity: 0.55; }
+.charge-diagram[data-step='1'] .endpoint-tensor { fill: var(--blue); stroke: var(--blue-dark); }
+.charge-diagram[data-step='0'] .prefix-signs { opacity: 1; }
+.charge-diagram[data-step='0'] .interval-bond { stroke: #8591ad; }
+.charge-diagram[data-step='2'] .prefix-signs { opacity: 0.55; }
+.interval-note { opacity: 0; }
+.charge-diagram[data-step='2'] .interval-note { opacity: 1; }
+.prefix-note { fill: var(--blue-dark); font: 13px 'Courier New', monospace; text-anchor: middle; }
 
 .diagram-tensor {
   fill: var(--night);
@@ -522,6 +569,7 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 
 .charge-diagram figcaption {
   margin: 0;
+  min-height: 96px;
   padding: 0 42px 36px;
   color: #5a6270;
   font-size: 0.84rem;
@@ -674,38 +722,6 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 .background-grid > div > p { max-width: 620px; color: #cbd2e1; }
 .timeline { border-top: 1px solid rgba(237, 239, 247, 0.24); }
 
-.thermal-motif {
-  width: min(390px, 100%);
-  margin-top: 42px;
-  color: var(--ice);
-  background: rgba(237, 239, 247, 0.04);
-  border-color: rgba(237, 239, 247, 0.25);
-  transform: rotate(-0.7deg);
-}
-
-.thermal-time, .thermal-rail, .thermal-vertical {
-  fill: none;
-  stroke: rgba(237, 239, 247, 0.66);
-  stroke-width: 1.25;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.thermal-time { stroke: var(--ice); stroke-width: 1.5; }
-.thermal-vertical { stroke: rgba(237, 239, 247, 0.3); stroke-dasharray: 2 3; }
-.thermal-layer.layer-1 { opacity: 0.82; }
-.thermal-layer.layer-2 { opacity: 0.64; }
-.thermal-site { fill: var(--ice); stroke: #ffffff; stroke-width: 1; }
-.thermal-gate { fill: #829cf3; stroke: var(--ice); stroke-width: 1; }
-
-.thermal-time-copy {
-  fill: var(--ice);
-  font: italic 14px Georgia, serif;
-  text-anchor: middle;
-}
-
-.thermal-motif .motif-tiny-copy { fill: #d7ddec; }
-
 .timeline article {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -727,28 +743,48 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 .timeline small { display: block; margin-top: 6px; }
 
 .many-body-sketch {
-  margin-top: 76px;
+  margin: 76px 0 0;
+  padding: 24px 0;
   position: relative;
-  overflow: hidden;
   border-top: 1px solid rgba(237, 239, 247, 0.22);
   border-bottom: 1px solid rgba(237, 239, 247, 0.22);
 }
 
-.many-body-sketch svg {
+.many-body-sketch > svg {
   width: min(760px, 100%);
   height: auto;
-  margin: 8px auto 0;
+  margin: 10px auto 0;
   display: block;
 }
 
-.many-body-note {
-  position: absolute;
-  top: 22px;
-  left: 0;
+.many-body-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   color: #c7cee0;
-  font: italic 0.82rem Georgia, serif;
-  transform: rotate(-2deg);
+  font-size: 0.82rem;
 }
+
+.representation-control { display: flex; align-items: center; gap: 12px; font-size: 0.72rem; }
+.select-wrap { position: relative; }
+.select-wrap svg { position: absolute; right: 11px; top: 15px; width: 14px; height: 14px; margin: 0; pointer-events: none; }
+.representation-control select {
+  min-height: 44px;
+  appearance: none;
+  padding: 9px 35px 9px 12px;
+  border: 1px solid #7885a2;
+  border-radius: 2px;
+  background: var(--night);
+  color: var(--ice);
+  cursor: pointer;
+  font-size: 0.76rem;
+}
+.many-body-sketch figcaption { max-width: 660px; min-height: 40px; margin: 12px auto 0; color: #b9c3db; text-align: center; font-size: 0.76rem; line-height: 1.6; }
+.many-correlations { opacity: 1; transition: opacity 300ms ease; }
+.many-body-sketch[data-representation='product'] .many-correlations { opacity: 0; }
+.many-body-sketch[data-representation='product'] .many-baseline { opacity: 0.15; }
+.many-baseline { transition: opacity 300ms ease; }
 
 .many-baseline, .many-arc {
   fill: none;
@@ -775,9 +811,10 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 }
 
 .many-equation {
-  fill: var(--ice);
+  margin: 0;
+  color: var(--ice);
   font: italic 17px Georgia, serif;
-  text-anchor: middle;
+  text-align: center;
   letter-spacing: 0.04em;
 }
 
@@ -815,20 +852,13 @@ footer {
   font-size: 0.72rem;
 }
 
-.footer-signoff {
-  margin: 0;
-  color: #777c83;
-  font: italic 0.72rem Georgia, serif;
-  letter-spacing: 0.02em;
-}
-
-.social-links { display: flex; gap: 18px; }
+.social-links { display: flex; gap: 12px; }
 
 .social-links a {
   display: grid;
   place-items: center;
-  min-width: 20px;
-  min-height: 20px;
+  min-width: 36px;
+  min-height: 36px;
   font-family: 'Courier New', monospace;
   font-size: 0.72rem;
   font-weight: 700;
@@ -882,6 +912,7 @@ footer {
   .method-copy { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
   .diagram-heading { align-items: flex-start; padding: 20px 24px 0; }
   .diagram-heading small { max-width: 130px; text-align: right; }
+  .diagram-steps { margin-inline: 24px; flex-wrap: wrap; }
   .charge-diagram figcaption { padding: 0 24px 28px; }
   .interests-band { padding: 38px 20px; }
   .interest-list { grid-template-columns: 1fr; }
@@ -894,11 +925,11 @@ footer {
   }
 
   .work-item > a { grid-column: auto; }
-  .many-body-sketch { margin-top: 58px; padding-top: 42px; }
-  .many-body-note { top: 14px; }
+  .many-body-sketch { margin-top: 58px; }
+  .many-body-heading { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .representation-control { width: 100%; justify-content: space-between; }
   .contact-email { font-size: 1rem; }
   footer { align-items: flex-start; gap: 18px; flex-wrap: wrap; }
-  .footer-signoff { order: 3; flex-basis: 100%; }
 }
 
 @media (max-width: 480px) {
@@ -921,10 +952,10 @@ footer {
     width: 100%;
     align-items: flex-start;
     gap: 10px;
-    font-size: 0.79rem;
+    font-size: 0.94rem;
   }
 
-  .phd-status span { padding-right: 10px; }
+  .phd-status span { padding-right: 10px; font-size: 0.72rem; }
   .hero-actions { margin-top: 30px; gap: 18px; }
   .primary-action { width: 100%; justify-content: center; }
   .portrait-wrap { width: 92%; }
@@ -949,10 +980,13 @@ footer {
   .method-copy { padding: 24px 18px; }
   .diagram-heading { flex-direction: column; gap: 5px; padding-inline: 18px; }
   .diagram-heading small { max-width: none; text-align: left; }
+  .diagram-steps { margin-inline: 18px; gap: 7px; }
+  .diagram-steps button { flex: 1; flex-direction: column; gap: 2px; padding: 7px 6px; font-size: 0.7rem; }
   .charge-diagram figcaption { padding: 0 18px 24px; }
   .interests-band { padding-inline: 16px; }
-  .many-body-sketch svg { min-width: 440px; margin-left: -52px; }
-  .many-body-note { max-width: 180px; line-height: 1.35; }
+  .many-body-sketch > svg { width: 100%; }
+  .many-spin { font-size: 24px; }
+  .many-equation { font-size: 0.92rem; letter-spacing: 0; }
 
   .contact-email {
     max-width: 100%;
