@@ -5,7 +5,8 @@ import {
   GraduationCap,
   Mail,
 } from 'lucide-react';
-import { ChargeFlowDiagram, ManyBodySketch } from './tensor-diagrams';
+import { ChargeFlowDiagram } from './tensor-diagrams';
+import { ResearchResults } from './research-results';
 
 const links = {
   email: 'mailto:hirmaysandesara@gmail.com',
@@ -233,6 +234,7 @@ export default function Home() {
           </div>
           <ChargeFlowDiagram />
         </div>
+        <ResearchResults />
       </section>
 
       <section className="interests-band">
@@ -352,7 +354,6 @@ export default function Home() {
             </article>
           </div>
         </div>
-        <ManyBodySketch />
       </section>
 
       <section className="contact-section">

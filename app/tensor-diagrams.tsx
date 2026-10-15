@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState, type CSSProperties } from 'react';
-import { Pause, Play, RotateCcw, MoveHorizontal } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Pause, Play, RotateCcw } from 'lucide-react';
 
 const updateSteps = [
   {
@@ -164,78 +164,6 @@ export function ChargeFlowDiagram() {
       <figcaption id="charge-flow-panel" aria-live="polite" aria-atomic="true">
         <span className="stage-caption" key={step}><strong>{updateSteps[step].title}</strong> {updateSteps[step].description}</span>
       </figcaption>
-    </figure>
-  );
-}
-
-export function ManyBodySketch() {
-  const [angle, setAngle] = useState(22);
-  const radians = angle * Math.PI / 180;
-  const downWeight = Math.sin(radians) ** 2;
-  const upWeight = 1 - downWeight;
-  const entropy = downWeight === 0 ? 0 : -upWeight * Math.log2(upWeight) - downWeight * Math.log2(downWeight);
-  const isProduct = angle === 0;
-  const description = isProduct
-    ? 'A product state: all five spins point up. One Schmidt value is nonzero, so the MPS needs bond dimension χ = 1.'
-    : angle === 45
-      ? 'The GHZ state: two equally weighted configurations. Each internal cut has entropy S = 1 bit, represented exactly with bond dimension χ = 2.'
-      : 'Two spin configurations in superposition. Across any internal cut, the squared Schmidt values are cos² θ and sin² θ; the exact MPS bond dimension is 2.';
-
-  return (
-    <figure className="many-body-sketch" data-product={isProduct}>
-      <div className="many-body-heading">
-        <span>Five spins · from a product state to GHZ</span>
-        <span className="interaction-hint"><MoveHorizontal size={14} aria-hidden="true" /> Drag to explore</span>
-      </div>
-      <svg viewBox="0 0 720 152" role="img" aria-labelledby="spin-chain-title spin-chain-description">
-        <title id="spin-chain-title">{isProduct ? 'A product state of five spins' : 'A five-spin GHZ-family state'}</title>
-        <desc id="spin-chain-description">{description}</desc>
-        <g className="many-correlations" style={{opacity:entropy,strokeWidth:1.5 + entropy * 1.5}}>
-          <path className="many-arc" d="M89 85 Q151 15 213 85" />
-          <path className="many-arc second" d="M213 85 Q277 143 341 85" />
-          <path className="many-arc" d="M341 85 Q405 15 469 85" />
-          <path className="many-arc second" d="M469 85 Q533 143 597 85" />
-        </g>
-        <path className="many-cut" d="M405 18 L405 141" />
-        <text className="many-cut-label" x="419" y="29">cut</text>
-        <path className="many-baseline" style={{strokeWidth:1 + entropy * 3,opacity:0.25 + entropy * 0.65}} d="M60 85 C206 79 482 91 626 85" />
-        {[89, 213, 341, 469, 597].map((x, index) => (
-          <g key={x}>
-            <circle className="many-site-halo" cx={x} cy="85" r={20 + entropy * 7} style={{opacity:entropy * 0.45}} />
-            <circle className="many-site" cx={x} cy="85" r="17" />
-            <text className="many-spin" x={x} y="91">{isProduct ? '↑' : ['s₁', 's₂', 's₃', 's₄', 's₅'][index]}</text>
-          </g>
-        ))}
-      </svg>
-      <p className="many-equation"><span>|ψ(θ)⟩ = cos θ |↑↑↑↑↑⟩</span> <span>+ sin θ |↓↓↓↓↓⟩</span></p>
-      <div className="state-explorer">
-        <div className="state-slider">
-          <div className="slider-label"><label htmlFor="state-angle">Superposition angle</label><output htmlFor="state-angle">θ = {angle}°</output></div>
-          <input
-            id="state-angle"
-            type="range"
-            min="0"
-            max="45"
-            step="1"
-            value={angle}
-            aria-valuetext={`${angle} degrees; entropy ${entropy.toFixed(2)} bits; bond dimension ${isProduct ? 1 : 2}`}
-            onChange={(event) => setAngle(Number(event.target.value))}
-            style={{'--range-progress':`${angle / 45 * 100}%`} as CSSProperties}
-          />
-          <div className="state-presets">
-            <button type="button" onClick={() => setAngle(0)} aria-pressed={isProduct}>Product state <span>0°</span></button>
-            <button type="button" onClick={() => setAngle(45)} aria-pressed={angle === 45}>GHZ state <span>45°</span></button>
-          </div>
-        </div>
-        <div className="schmidt-display">
-          <div className="schmidt-metrics"><span>Entropy across the cut <output>{entropy.toFixed(2)} <small>bits</small></output></span><span>Bond dimension <output>χ = {isProduct ? 1 : 2}</output></span></div>
-          <div className="schmidt-bar" role="img" aria-label={`Squared Schmidt values: ${(upWeight * 100).toFixed(1)} percent and ${(downWeight * 100).toFixed(1)} percent`}>
-            <span style={{width:`${upWeight * 100}%`}} /><span style={{width:`${downWeight * 100}%`}} />
-          </div>
-          <div className="schmidt-labels"><span>cos² θ <b>{(upWeight * 100).toFixed(0)}%</b></span><span>sin² θ <b>{(downWeight * 100).toFixed(0)}%</b></span></div>
-        </div>
-      </div>
-      <figcaption>{description} <span className="schematic-note">Arcs indicate correlations schematically.</span></figcaption>
     </figure>
   );
 }
