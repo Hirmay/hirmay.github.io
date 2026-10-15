@@ -69,7 +69,7 @@ export function ResearchResults() {
           </div>
         </div>
         <details className="results-details">
-          <summary>Storage and propagation time <ChevronDown size={17} aria-hidden="true" /></summary>
+          <summary><strong>Storage and propagation time</strong> <ChevronDown size={17} aria-hidden="true" /></summary>
           <div className="results-plots">
             <ResultPanel title="Stored MPS entries and Majorana strings versus inverse temperature" viewBox="403 0 397.376584 274" />
             <ResultPanel title="Cumulative propagation time on shared compute nodes versus inverse temperature" viewBox="403 273 397.376584 274" />
