@@ -8,6 +8,7 @@ import {
 import { ChargeFlowDiagram } from './tensor-diagrams';
 import { ResearchResults } from './research-results';
 import { EdgeNetworks } from './edge-networks';
+import { HeroNetworkSketch } from './hero-network-sketch';
 
 const links = {
   email: 'mailto:hirmaysandesara@gmail.com',
@@ -22,29 +23,6 @@ const researchInterests = [
   'Fermionic dynamics',
   'Thermal-state simulation',
 ];
-
-function HeroNetworkSketch() {
-  return (
-    <svg
-      className="hero-network-sketch"
-      viewBox="0 0 210 132"
-      aria-hidden="true"
-    >
-      <path className="sketch-line" d="M16 68 C45 58, 59 78, 86 66 S136 55, 191 69" />
-      <path className="sketch-line faint" d="M52 66 C48 91, 63 104, 60 123" />
-      <path className="sketch-line faint" d="M108 64 C105 38, 118 23, 116 7" />
-      <path className="sketch-line faint" d="M163 63 C169 88, 155 103, 162 124" />
-      <rect className="sketch-node" x="42" y="55" width="22" height="22" rx="2" />
-      <rect className="sketch-node" x="98" y="53" width="22" height="22" rx="2" />
-      <rect className="sketch-node" x="153" y="55" width="22" height="22" rx="2" />
-      <text x="49" y="70">A</text>
-      <text x="105" y="68">A</text>
-      <text x="160" y="70">A</text>
-      <text className="sketch-caption" x="4" y="29">a small state,</text>
-      <text className="sketch-caption" x="116" y="110">a large system</text>
-    </svg>
-  );
-}
 
 function MajoranaStringMotif() {
   return (
