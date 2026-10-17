@@ -162,7 +162,7 @@ export default function Home() {
           </h1>
           <p className="intro">
             I develop numerical methods for quantum many-body systems. My current
-            work focuses on tensor-network representations for fermionic dynamics,
+            work focuses on <mark className="text-highlight">tensor-network representations for fermionic dynamics</mark>,
             with the aim of avoiding explicit exponential storage while keeping the
             underlying physics visible in the algorithm.
           </p>
@@ -210,8 +210,8 @@ export default function Home() {
               difficult to handle without storing a rapidly growing set of terms.
             </p>
             <p>
-              My approach places virtual <span className="math">ℤ₂</span> charge
-              labels on the MPS bonds. These labels record the accumulated fermionic
+              My approach places <mark className="text-highlight">virtual <span className="math">ℤ₂</span> charge
+              labels</mark> on the MPS bonds. These labels record the accumulated fermionic
               parity, so the string signs can be recovered from endpoint and virtual-
               state information. The tensor contractions and SVD compression remain
               charge-aware throughout.
@@ -330,8 +330,8 @@ export default function Home() {
             <p>
               I am especially interested in tensor-network methods for fermionic
               dynamics, thermal states, and strongly interacting systems. I want to
-              understand not only whether an algorithm works, but when its ranks stay
-              manageable, what accuracy costs, and where the representation begins to fail.
+              understand not only whether an algorithm works, but <mark className="text-highlight">when its ranks stay
+              manageable</mark>, what accuracy costs, and where the representation begins to fail.
             </p>
           </div>
           <div className="timeline">

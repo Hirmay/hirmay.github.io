@@ -132,6 +132,15 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 }
 .phd-start { white-space: nowrap; }
 
+.text-highlight {
+  padding: 0.16em 0.18em;
+  background: url('/text-highlight.svg') center / 100% 100% no-repeat;
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.text-highlight .math { color: inherit; }
+
 .hero-actions {
   margin-top: 38px;
   display: flex;
