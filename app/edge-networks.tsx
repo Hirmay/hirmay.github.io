@@ -1,95 +1,188 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, RotateCcw, X } from 'lucide-react';
+import type { PointerEvent as ReactPointerEvent } from 'react';
+import { ArrowRight, X } from 'lucide-react';
 
 type Network = 'parity' | 'compression';
+const sites = [45, 110, 175, 240, 305];
+const initialCharges = [0, 1, 0, 1];
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function PeekSketch({ kind }: { kind: Network }) {
   return (
     <svg viewBox="0 0 112 58" aria-hidden="true">
-      {kind === 'parity' ? (
-        <>
-          <path className="peek-bond" d="M-8 30 H104 M26 30 V54 M72 30 V54" />
-          <path className="peek-trail" d="M26 19 Q49 -2 72 19" />
-          <rect x="17" y="21" width="18" height="18" rx="2" />
-          <rect x="63" y="21" width="18" height="18" rx="2" />
-          <text x="26" y="34">A</text><text x="72" y="34">A</text>
-          <text className="peek-charge" x="49" y="25">q</text>
-        </>
-      ) : (
-        <>
-          <path className="peek-bond" d="M8 30 H120 M26 30 V54 M78 30 V54" />
-          <path className="peek-trail" d="M32 23 Q52 5 72 23 M32 37 Q52 55 72 37" />
-          <rect x="17" y="21" width="18" height="18" rx="2" />
-          <rect x="69" y="21" width="18" height="18" rx="2" />
-          <text x="26" y="34">A</text><text x="78" y="34">B</text>
-          <text className="peek-charge" x="52" y="25">χ</text>
-        </>
-      )}
+      <path className="peek-bond" d="M-8 30 H120 M26 30 V54 M78 30 V54" />
+      <path className="peek-trail" d={kind === 'parity' ? 'M26 19 Q52 -2 78 19' : 'M32 23 Q52 5 72 23 M32 37 Q52 55 72 37'} />
+      <g className="peek-left-tensor"><rect x="17" y="21" width="18" height="18" rx="2" /><text x="26" y="34">A</text></g>
+      <g className="peek-right-tensor"><rect x="69" y="21" width="18" height="18" rx="2" /><text x="78" y="34">{kind === 'parity' ? 'A' : 'B'}</text></g>
+      <text className="peek-charge" x="52" y="25">{kind === 'parity' ? 'q' : 'χ'}</text>
     </svg>
   );
 }
 
-function ParitySketch({ stage }: { stage: number }) {
-  const toggled = stage === 3;
+function ParityDoodle() {
+  const [charge, setCharge] = useState(0);
+  const [pulse, setPulse] = useState<{ origin: number; progress: number } | null>(null);
+  const frame = useRef<number | null>(null);
+
+  function send(origin: number) {
+    if (frame.current !== null) cancelAnimationFrame(frame.current);
+    if (reducedMotion()) {
+      setCharge((value) => value ^ 1);
+      setPulse(null);
+      return;
+    }
+    const start = performance.now();
+    function tick(now: number) {
+      const progress = Math.min(1, (now - start) / 1250);
+      if (progress < 1) {
+        setPulse({ origin, progress });
+        frame.current = requestAnimationFrame(tick);
+      } else {
+        setCharge((value) => value ^ 1);
+        setPulse(null);
+        frame.current = null;
+      }
+    }
+    setPulse({ origin, progress: 0 });
+    frame.current = requestAnimationFrame(tick);
+  }
+
+  useEffect(() => {
+    send(0);
+    return () => { if (frame.current !== null) cancelAnimationFrame(frame.current); };
+  }, []);
+
+  const originX = sites[pulse?.origin ?? 0];
+  const reach = Math.max(originX - sites[0], sites[4] - originX);
+  const distance = (pulse?.progress ?? 0) * reach;
+  const touched = (x: number) => pulse !== null && Math.abs(x - originX) <= distance;
+  const tokenXs = pulse ? [originX > sites[0] ? originX - distance : null, originX < sites[4] ? originX + distance : null].filter((x): x is number => x !== null && x >= sites[0] && x <= sites[4]) : [];
+
   return (
-    <svg className="edge-demonstration parity-demonstration" viewBox="0 0 300 152" role="img" aria-label={toggled ? 'The three interval charges are flipped; both outer charges are unchanged.' : 'Four tensors, with endpoint maps at the first and last sites and charges on the bonds.'} data-stage={stage}>
-      <path className="edge-bond" d="M8 76 H292" />
-      <path className="edge-interval" d="M52 76 H248" />
-      <path className="edge-charge-signal" d="M52 76 H248" />
-      {[18, 84, 150, 216, 282].map((x, index) => (
-        <text key={x} className={`edge-charge ${index > 0 && index < 4 ? 'interval-charge' : ''}`} x={x} y="63">{toggled && index > 0 && index < 4 ? [0, 0, 1, 0, 0][index] : [0, 1, 0, 1, 0][index]}</text>
-      ))}
-      {[52, 117, 183, 248].map((x, index) => (
-        <g key={x}>
-          <path className="edge-leg" d={`M${x} 88 V112`} />
-          <rect className={`edge-tensor ${index === 0 || index === 3 ? 'edge-end-tensor' : ''}`} x={x - 12} y="64" width="24" height="24" rx="2" />
-          <text className="edge-tensor-letter" x={x} y="80">A</text>
-        </g>
-      ))}
-      <g className="edge-endpoint-maps">
-        <path d="M52 30 V58 M248 30 V58 M48 52 L52 58 L56 52 M244 52 L248 58 L252 52" />
-        <text x="52" y="23">ℓₐ</text><text x="248" y="23">ℓᵦ</text>
-      </g>
-      <text className="edge-diagram-note" x="150" y="140">{toggled ? 'q → q ⊕ 1 on the interval' : stage === 2 ? 'endpoint maps + old-charge signs' : 'read the old prefix charges'}</text>
-    </svg>
+    <>
+      <div className="network-toy parity-toy" data-moving={pulse !== null}>
+        <svg viewBox="0 0 350 190" aria-hidden="true">
+          <path className="toy-bond" d="M15 100 H335" />
+          {sites.map((x) => <path key={x} className="toy-leg" d={`M${x} 100 V142`} />)}
+          {initialCharges.map((value, index) => {
+            const x = (sites[index] + sites[index + 1]) / 2;
+            const bit = value ^ charge ^ Number(touched(x));
+            return <text key={x} className={`toy-bit ${touched(x) ? 'just-flipped' : ''}`} x={x} y="83">{bit}</text>;
+          })}
+          <text className="toy-handwriting" x="175" y="31">mind the minus signs</text>
+          <path className="toy-pencil-arrow" d="M282 45 Q315 46 311 72 M305 65 311 73 317 65" />
+          {tokenXs.map((x, index) => (
+            <g className="toy-sign" key={index} transform={`translate(${x} ${56 - 8 * Math.sin((pulse?.progress ?? 0) * Math.PI)})`}>
+              <circle r="14" /><text y="4">−1</text>
+              <path d="M0 18 V25" />
+            </g>
+          ))}
+          {!pulse && <text className="toy-small-label" x="175" y="175">q ⊕ 1</text>}
+        </svg>
+        {sites.map((x, index) => (
+          <button key={x} className="toy-tensor" type="button" style={{ left: `${x / 350 * 100}%`, top: `${100 / 190 * 100}%` }} data-bumped={pulse !== null && Math.abs(Math.abs(x - originX) - distance) < 24} aria-label={`Send a parity pulse from tensor ${index + 1}`} onClick={() => send(index)}>
+            <span className="toy-tensor-face">A</span>
+          </button>
+        ))}
+      </div>
+      <p className="network-toy-hint">Tap a tensor. Pass a sign.</p>
+      <span className="sr-only" role="status">{pulse ? 'Passing a parity sign along the network.' : `Pulse finished. Virtual charges flipped; the bookkeeping bit is ${charge}.`}</span>
+    </>
   );
 }
 
-function CompressionSketch({ compressed }: { compressed: boolean }) {
+function ElasticDoodle() {
+  const [pull, setPull] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const [compressed, setCompressed] = useState(false);
+  const frame = useRef<number | null>(null);
+  const drag = useRef<{ start: number; scale: number; initial: number; pull: number } | null>(null);
+
+  function spring(amount: number) {
+    if (frame.current !== null) cancelAnimationFrame(frame.current);
+    setCompressed(true);
+    if (reducedMotion()) { setPull(0); return; }
+    const start = performance.now();
+    setPull(amount);
+    function tick(now: number) {
+      const time = (now - start) / 1000;
+      if (time < 1.25) {
+        setPull(amount * Math.exp(-4.8 * time) * Math.cos(17 * time));
+        frame.current = requestAnimationFrame(tick);
+      } else {
+        setPull(0);
+        frame.current = null;
+      }
+    }
+    frame.current = requestAnimationFrame(tick);
+  }
+
+  useEffect(() => {
+    spring(44);
+    return () => { if (frame.current !== null) cancelAnimationFrame(frame.current); };
+  }, []);
+
+  function grab(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (event.button !== 0 || !event.isPrimary) return;
+    event.preventDefault();
+    if (frame.current !== null) cancelAnimationFrame(frame.current);
+    event.currentTarget.focus({ preventScroll: true });
+    event.currentTarget.setPointerCapture(event.pointerId);
+    const width = event.currentTarget.parentElement!.getBoundingClientRect().width;
+    drag.current = { start: event.clientX, scale: 350 / width, initial: pull, pull };
+    setDragging(true);
+    setCompressed(false);
+  }
+
+  function tug(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (!drag.current) return;
+    const amount = Math.max(-35, Math.min(60, drag.current.initial + (event.clientX - drag.current.start) * drag.current.scale));
+    drag.current.pull = amount;
+    setPull(amount);
+  }
+
+  function release(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (!drag.current) return;
+    const amount = drag.current.pull;
+    drag.current = null;
+    setDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    spring(Math.abs(amount) < 8 ? 44 : amount);
+  }
+
+  const right = 245 + pull;
+  const middle = (75 + right) / 2;
   return (
-    <svg className="edge-demonstration compression-demonstration" viewBox="0 0 300 152" role="img" aria-label={compressed ? 'Small singular values are discarded within each charge block; even and odd sectors remain separate.' : 'A bond has separate even and odd charge blocks before compression.'} data-compressed={compressed}>
-      <text className="edge-sector-label" x="150" y="22">even · q = 0</text>
-      <text className="edge-sector-label odd" x="150" y="128">odd · q = 1</text>
-      {[37, 47, 57, 91, 101, 111].map((y, index) => (
-        <path key={y} className={`edge-singular-line ${index < 3 ? 'even' : 'odd'} ${index === 2 || index === 5 ? 'small' : 'kept'}`} d={`M65 74 Q150 ${2 * y - 74} 235 74`} />
-      ))}
-      <rect className="edge-tensor" x="35" y="59" width="32" height="32" rx="2" />
-      <rect className="edge-tensor" x="233" y="59" width="32" height="32" rx="2" />
-      <path className="edge-leg" d="M51 91 V118 M249 91 V118 M10 75 H35 M265 75 H290" />
-      <text className="edge-tensor-letter" x="51" y="80">A</text><text className="edge-tensor-letter" x="249" y="80">B</text>
-      <text className="edge-svd-label" x="150" y="80">{compressed ? 'χ̃' : 'χ'}</text>
-      <text className="edge-diagram-note" x="150" y="150">{compressed ? 'smaller bond, same charge structure' : 'SVD within each charge block'}</text>
-    </svg>
+    <>
+      <div className="network-toy elastic-toy" data-compressed={compressed} data-dragging={dragging}>
+        <svg viewBox="0 0 350 190" aria-hidden="true">
+          <text className="toy-handwriting" x="175" y="25">a bond with a little give</text>
+          <path className="toy-leg" d={`M15 100 H75 M${right} 100 H335 M75 100 V146 M${right} 100 V146`} />
+          {[57, 69, 81, 119, 131, 143].map((y, index) => <path key={y} className={`toy-elastic-line ${index < 3 ? 'even' : 'odd'} ${index === 2 || index === 5 ? 'small' : ''}`} d={`M75 100 Q${middle} ${2 * y - 100 - Math.abs(pull) * (index < 3 ? -0.25 : 0.25)} ${right} 100`} />)}
+          <text className="toy-sector" x={middle} y="48">q = 0</text>
+          <text className="toy-sector odd" x={middle} y="161">q = 1</text>
+          <text className="toy-rank" x={middle} y="106">{compressed ? 'χ̃' : 'χ'}</text>
+          {!dragging && Math.abs(pull) > 6 && <text className="toy-boing" x={right} y="77">boing.</text>}
+          <path className="toy-pencil-arrow" d={`M${right - 2} 169 Q${right + 30} 160 ${right + 24} 133 M${right + 19} 140 ${right + 24} 132 ${right + 30} 139`} />
+        </svg>
+        <div className="toy-anchor" style={{left:`${75 / 350 * 100}%`,top:`${100 / 190 * 100}%`}}><span className="toy-tensor-face">A</span></div>
+        <button className="toy-tensor toy-tug" type="button" style={{left:`${right / 350 * 100}%`,top:`${100 / 190 * 100}%`}} aria-label="Tug and release the tensor bond" aria-describedby="elastic-instructions" onPointerDown={grab} onPointerMove={tug} onPointerUp={release} onPointerCancel={release} onLostPointerCapture={release} onClick={(event) => { if (event.detail === 0) spring(44); }}>
+          <span className="toy-tensor-face">B</span>
+        </button>
+      </div>
+      <p className="network-toy-hint" id="elastic-instructions">Drag the right tensor. Let go.</p>
+      <span className="sr-only" role="status">{dragging ? 'Stretching the bond.' : compressed ? 'Bond released. Even and odd charge sectors stay separate.' : 'Ready to tug the bond. Keyboard users can press Enter or Space.'}</span>
+    </>
   );
 }
 
 export function EdgeNetworks() {
   const [open, setOpen] = useState<Network | null>(null);
-  const [run, setRun] = useState(0);
-  const [stage, setStage] = useState(0);
-  const [compressed, setCompressed] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
   const triggers = useRef<Partial<Record<Network, HTMLButtonElement | null>>>({});
-
-  function start(kind: Network) {
-    setOpen(kind);
-    setStage(0);
-    setCompressed(false);
-    setRun((value) => value + 1);
-  }
 
   function close() {
     if (open) triggers.current[open]?.focus();
@@ -106,40 +199,21 @@ export function EdgeNetworks() {
     return () => document.removeEventListener('pointerdown', dismiss);
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setStage(3);
-      setCompressed(true);
-      return;
-    }
-    const timers = open === 'parity'
-      ? [window.setTimeout(() => setStage(1), 250), window.setTimeout(() => setStage(2), 1000), window.setTimeout(() => setStage(3), 1900)]
-      : [window.setTimeout(() => setCompressed(true), 850)];
-    return () => timers.forEach(window.clearTimeout);
-  }, [open, run]);
-
   return (
     <div className="edge-networks" ref={root} onKeyDown={(event) => { if (event.key === 'Escape' && open) { event.preventDefault(); close(); } }}>
       {(['parity', 'compression'] as const).map((kind) => (
         <div className={`edge-network edge-network-${kind}`} key={kind}>
-          <button className="network-peek" ref={(node) => { triggers.current[kind] = node; }} type="button" aria-expanded={open === kind} aria-controls={`edge-${kind}-panel`} aria-label={`Explore ${kind === 'parity' ? 'virtual parity' : 'charge-aware compression'}`} onClick={() => open === kind ? close() : start(kind)}>
+          <button className="network-peek" ref={(node) => { triggers.current[kind] = node; }} type="button" aria-expanded={open === kind} aria-controls={`edge-${kind}-panel`} aria-label={kind === 'parity' ? 'Play with virtual parity' : 'Play with an elastic tensor bond'} onClick={() => open === kind ? close() : setOpen(kind)}>
             <PeekSketch kind={kind} />
-            <span>{kind === 'parity' ? 'Virtual parity' : 'Charge-aware SVD'}<ArrowRight size={12} aria-hidden="true" /></span>
+            <span>{kind === 'parity' ? 'pass a sign' : 'tug a bond'}<ArrowRight size={12} aria-hidden="true" /></span>
           </button>
           {open === kind && (
-            <section className="network-panel" id={`edge-${kind}-panel`} aria-labelledby={`edge-${kind}-title`}>
+            <section className="network-panel" id={`edge-${kind}-panel`} aria-label={kind === 'parity' ? 'Virtual parity margin doodle' : 'Elastic tensor bond margin doodle'}>
               <div className="network-panel-heading">
-                <h3 id={`edge-${kind}-title`}>{kind === 'parity' ? 'Virtual parity update' : 'Charge-aware compression'}</h3>
-                <button ref={closeButton} className="network-close" type="button" aria-label="Close tensor network" onClick={() => close()}><X size={17} aria-hidden="true" /></button>
+                <small>margin doodle</small>
+                <button ref={closeButton} className="network-close" type="button" aria-label="Close tensor doodle" onClick={close}><X size={17} aria-hidden="true" /></button>
               </div>
-              {kind === 'parity' ? <ParitySketch stage={stage} /> : <CompressionSketch compressed={compressed} />}
-              <p>{kind === 'parity' ? 'Read the old charges, apply the endpoint maps and signs, then flip the virtual charges in between. The middle tensors stay unchanged.' : 'Compress the bond within its even and odd charge blocks. Small singular values can be discarded without mixing the sectors.'}</p>
-              <div className="network-panel-footer">
-                <button className="network-replay" type="button" onClick={() => start(kind)}><RotateCcw size={13} aria-hidden="true" />{kind === 'parity' ? 'Replay update' : 'Replay compression'}</button>
-                <small>Schematic</small>
-              </div>
-              <span className="sr-only" role="status">{kind === 'parity' ? stage === 3 ? 'Update complete. Only the interval charges have flipped.' : stage === 2 ? 'Applying endpoint maps and signs.' : 'Reading old prefix charges.' : compressed ? 'Compression complete. Both charge sectors are retained.' : 'Performing charge-aware compression.'}</span>
+              {kind === 'parity' ? <ParityDoodle /> : <ElasticDoodle />}
             </section>
           )}
         </div>
