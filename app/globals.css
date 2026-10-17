@@ -233,7 +233,7 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 .hero-network-sketch > svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sketch-index { text-anchor: middle; }
 .sketch-bond { cursor: pointer; }
-.sketch-bond:focus-visible { outline: none; }
+.sketch-bond:focus { outline: none; }
 .sketch-bond:focus-visible > .sketch-line { stroke-width: 3; stroke-dasharray: 2 2; opacity: 1; }
 .sketch-bond-hit { fill: none; stroke: transparent; stroke-width: 24; pointer-events: stroke; }
 .sketch-bond-glow { fill: none; stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; pointer-events: none; }
