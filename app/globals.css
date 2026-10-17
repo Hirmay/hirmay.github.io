@@ -118,14 +118,19 @@ nav a:hover, .text-action:hover, .work-item a:hover { color: var(--blue); }
 .phd-status {
   max-width: 570px;
   margin: 26px 0 0;
-  padding-left: 16px;
-  border-left: 3px solid var(--blue);
   color: var(--blue-dark);
   font-size: 1.12rem;
-  line-height: 1.45;
+  line-height: 1.7;
 }
 
-.phd-status strong { font-weight: 700; }
+.phd-status strong {
+  padding: 0.12em 0.38em;
+  background: url('/phd-highlight.svg') center / 100% 100% no-repeat;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  font-weight: 700;
+}
+.phd-start { white-space: nowrap; }
 
 .hero-actions {
   margin-top: 38px;
@@ -1014,7 +1019,6 @@ footer {
 
   .phd-status {
     width: 100%;
-    padding-left: 13px;
     font-size: 1.04rem;
   }
 

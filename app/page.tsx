@@ -167,7 +167,7 @@ export default function Home() {
             underlying physics visible in the algorithm.
           </p>
           <p className="phd-status">
-            <strong>I’m looking for PhD positions starting in Fall 2027.</strong>
+            <strong>I’m looking for PhD positions starting in <span className="phd-start">Fall 2027.</span></strong>
           </p>
           <div className="hero-actions">
             <a className="primary-action" href="#research">
@@ -256,7 +256,7 @@ export default function Home() {
           <p>Selected work</p>
         </div>
         <div className="work-heading">
-          <h2>A few problems I have worked on.</h2>
+          <h2>A few problems<br />I have worked on.</h2>
           <div>
             <p>
               My path into tensor networks grew out of quantum algorithms, simulation,
