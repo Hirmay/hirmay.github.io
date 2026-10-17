@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, Download } from 'lucide-react';
+import { ArrowUpRight, ChartNoAxesCombined, ChevronDown, Download, Minus, Plus } from 'lucide-react';
 
 const mpsSeries = [
   { chi: 16, color: '#bcbddc' },
@@ -69,7 +69,10 @@ export function ResearchResults() {
           </div>
         </div>
         <details className="results-details">
-          <summary><strong>Storage and propagation time</strong> <ChevronDown size={17} aria-hidden="true" /></summary>
+          <summary>
+            <span className="results-disclosure-title"><ChartNoAxesCombined size={22} aria-hidden="true" /><strong>Storage and propagation time</strong></span>
+            <span className="results-disclosure-action"><span className="details-closed">Show plots</span><span className="details-open">Hide plots</span><Plus className="details-closed" size={19} aria-hidden="true" /><Minus className="details-open" size={19} aria-hidden="true" /></span>
+          </summary>
           <div className="results-plots">
             <ResultPanel title="Stored MPS entries and Majorana strings versus inverse temperature" viewBox="403 0 397.376584 274" />
             <ResultPanel title="Cumulative propagation time on shared compute nodes versus inverse temperature" viewBox="403 273 397.376584 274" />

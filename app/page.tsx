@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { ChargeFlowDiagram } from './tensor-diagrams';
 import { ResearchResults } from './research-results';
+import { EdgeNetworks } from './edge-networks';
 
 const links = {
   email: 'mailto:hirmaysandesara@gmail.com',
@@ -166,8 +167,7 @@ export default function Home() {
             underlying physics visible in the algorithm.
           </p>
           <p className="phd-status">
-            <span>PhD search</span>
-            I am looking for positions in the Fall 2027 cycle.
+            <strong>I’m looking for PhD positions starting in Fall 2027.</strong>
           </p>
           <div className="hero-actions">
             <a className="primary-action" href="#research">
@@ -220,6 +220,7 @@ export default function Home() {
         </div>
 
         <MajoranaStringMotif />
+        <EdgeNetworks />
 
         <div className="method-card">
           <div className="method-copy">
