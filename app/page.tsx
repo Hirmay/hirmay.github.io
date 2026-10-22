@@ -318,7 +318,7 @@ export default function Home() {
               <div>
                 <span>2024 — present</span>
                 <h3>M.Sc. Computational Science and Engineering</h3>
-                <p>Technical University of Munich · Grade 1.5</p>
+                <p>Technical University of Munich · Grade 1.5 (approx. US GPA 3.5/4.0)</p>
                 <small>TUM Merit Scholarship · Deutschlandstipendium</small>
               </div>
             </article>
